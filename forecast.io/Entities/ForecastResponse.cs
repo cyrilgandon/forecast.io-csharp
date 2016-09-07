@@ -2,7 +2,7 @@
 
 namespace ForecastIO
 {
-    public class ForecastIOResponse
+    public class ForecastResponse
     {
         public float latitude { get; set; }
         public float longitude { get; set; }

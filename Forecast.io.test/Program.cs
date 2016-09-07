@@ -16,18 +16,18 @@ namespace Forecast.io.test
 
     class Test
     {
-        private static string key = "Insert Your Api Key";
+        private static string key = "f7dcffe2af478a1b61307baab44eedee";
         public void TestSync()
         {
-            var request = new ForecastIORequest(key, 43.4499376f, -79.7880999f, Unit.si);
-            var response = request.Get();
+            var request = new ForecastRequest(key, 43.4499376f, -79.7880999f, Unit.si);
+            var response = RequestHelpers.Get(request);
             Console.WriteLine(string.Format("Sync Response: {0}", response.currently.apparentTemperature));
         }
 
         public async void TestAsync()
         {
-            var request = new ForecastIORequest(key, 43.4499376f, -79.7880999f, Unit.si);
-            var response = await request.GetAsync();
+            var request = new ForecastRequest(key, 43.4499376f, -79.7880999f, Unit.si);
+            var response = await RequestHelpers.GetAsync(request);
             Console.WriteLine(string.Format("Async Response: {0}", response.currently.apparentTemperature));
         }
     }
