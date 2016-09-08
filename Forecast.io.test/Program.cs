@@ -16,7 +16,7 @@ namespace Forecast.io.test
 
     class Test
     {
-        private static string key = "f7dcffe2af478a1b61307baab44eedee";
+        private static string key = "API Key";
         public void TestSync()
         {
             var request = new ForecastRequest(key, 43.4499376f, -79.7880999f, Unit.si);
