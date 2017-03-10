@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A43756B9-10F7-41A4-80F9-50E16E8D0994}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{862E66E6-FA36-458C-B195-BB86AAA8B998}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Forecast.io.test</RootNamespace>
-    <AssemblyName>Forecast.io.test</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <RootNamespace>RES.DarkSky</RootNamespace>
+    <AssemblyName>RES.DarkSky</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,36 +22,43 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\RES.DarkSky.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="CompressionEnabledWebClient.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DarkSkyService.cs" />
+    <Compile Include="RequestModel\DarkSkyRequest.cs" />
+    <Compile Include="ResponseModel\DarkSkyResponse.cs" />
+    <Compile Include="ResponseModel\DataBlock.cs" />
+    <Compile Include="ResponseModel\DataPoint.cs" />
+    <Compile Include="Utilities.cs" />
+    <Compile Include="RequestModel\Exclude.cs" />
+    <Compile Include="RequestModel\Language.cs" />
+    <Compile Include="RequestModel\Units.cs" />
+    <Compile Include="ResponseModel\Alert.cs" />
+    <Compile Include="ResponseModel\Flags.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\forecast.io\Forecast.io.csproj">
-      <Project>{505f13da-0ff3-4b14-8a30-86d8eb95f0ac}</Project>
-      <Name>Forecast.io</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

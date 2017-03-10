@@ -1,89 +1,59 @@
-[![Build Status](https://travis-ci.org/f0xy/forecast.io-csharp.svg?branch=master)](https://travis-ci.org/f0xy/forecast.io-csharp)
-[![NuGet](https://img.shields.io/nuget/v/Forecast.io.svg)](https://www.nuget.org/packages/Forecast.io/)
-
-forecast.io-csharp
+### CS2DarkSky ###
 ==================
 
-C# Wrapper Library For [Forecast.io](http://forecast.io/)
+C# Wrapper Library For [Dark Sky](https://darksky.net/)
 
 ------------------
 
-### Install ###
-
-    Install-Package Forecast.io
-
 ###Usage###
 
-    using ForecastIO;
-    // API key, Lat, Long, Unit
+```c#
+    using CS2DarkSky;
 
-    var request = new ForecastIORequest(key, 37.8267f, -122.423f, Unit.si);
-    var response = request.Get();
-
-    var request = new ForecastIORequest(key, 43.4499376f, -79.7880999f, Unit.si);
-    var response = await request.GetAsync();
+    var service = new DarkSkyService("YOUR API KEY");
+    var response = service.Download(37.8267, -122.423);
+```
 
 Returns the complete object :
 
-<p align="center">
-  <img src="http://i.imgur.com/iVxt1VD.png" alt=""></img>
-</p>
+![Response Example](assets/response-example.png)
 
-####Including the date####
-    using ForecastIO;
+####Get the observed (in the past) or forecasted (in the future) hour-by-hour and daily weather conditions for a particular date####
 
-    var request = new ForecastIORequest("YOUR API KEY", 37.8267f, -122.423f, DateTime.Now, Unit.si);
-    var response = request.Get();
+```c#
+    using CS2DarkSky;
 
-#####Using date/time extensions#####
-    using ForecastIO;
-    using ForecastIO.Extensions;
+    var service = new DarkSkyService("YOUR API KEY");
+    var response = service.Download(37.8267, -122.423, DateTime.Now, Unit.SI, Language.English);
+```
 
-    var request = new ForecastIORequest("YOUR API KEY", 37.8267f, -122.423f, DateTime.Now, Unit.si);
-    var response = request.Get();
+####Extends the hourly period from 48 hours to 168 hours####
 
-    // Date/Time is represented by a Unix Timestamp
-    var currentTime = response.currently.time;
+```c#
+    using CS2DarkSky;
 
-    // Return a .NET DateTime object (UTC) using an extension (Notice the additional 'using' statement)
-    var _currentTime = currentTime.ToDateTime();
-
-    // Return a local .NET DateTime object
-    var _localCurrentTime = currentTime.ToDateTime().ToLocalTime();
-
-####Include extra data - (Currently only hourly is supported by the API) Returns hourly data for the next seven days, rather than the next two.####
-
-#####Please note that you cannot specify a date (TimeMachine request) as the extend parameter will be ignored.#####
-
-    using ForecastIO;
-
-    var extendBlocks = new Extend[]
-    {
-        Extend.hourly
-    };
-
-    var request = new ForecastIORequest("YOUR API KEY", 37.8267f, -122.423f, Unit.si, extendBlocks);
-    var response = request.Get();
+    var service = new DarkSkyService("YOUR API KEY");
+    var response = service.Download(37.8267, -122.423, null, Units.SI, Language.English, extend: true);
+```
 
 ####Exclude certain objects (returned as null)####
-    using ForecastIO;
 
-    var excludeBlocks = new Exclude[]
-    {
-        Exclude.alerts,
-        Exclude.currently
-    };
+```c#
+    using CS2DarkSky;
 
-    var request = new ForecastIORequest("YOUR API KEY", 37.8267f, -122.423f, DateTime.Now, Unit.si, null, excludeBlocks);
-    var response = request.Get();
-
-####Request Metadata####
-
-Once a request has been made with `Get()` two properties namely `ApiResponseTime` and `ApiCallsMade` will be accesible on the request object.
-Please note that if a request has not yet been made an exception will be thrown.
+    var excludeBlocks = new [] { Exclude.alerts, Exclude.currently };
+    var service = new DarkSkyService("YOUR API KEY");
+    var response = service.Download(37.8267, -122.423, DateTime.Now, Unit.SI, Language.English, null, excludeBlocks);
+```
 
 ####Please note:####
 
- - You will require your own forecast.io [API Key](https://developer.forecast.io/)
+ - You will require your own Dark Sky [API Key](https://darksky.net/dev/)
  - Not all regions return forecasts by all periods (Daily, Minutely etc.)
  - Not all regions return all flags.
+
+####Terms of service####
+
+Please remember to follow the [Terms of Service of Dark Sky](https://darksky.net/dev/docs/terms) when it comes to use this library.
+
+>You agree that any application or service which incorporates data obtained from the Service shall prominently display the message “Powered by Dark Sky” in a legible manner near the data or any information derived from any data from the Service. This message must, if possible, open a link to [https://darksky.net/poweredby/](https://darksky.net/poweredby/) when clicked or touched.
