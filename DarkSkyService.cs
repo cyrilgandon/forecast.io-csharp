@@ -32,7 +32,7 @@ namespace CS2DarkSky
         /// Get a new instance of Dark Sky service with the specified Api key and the default host https://api.darksky.net/forecast
         /// </summary>
         /// <param name="apiKey">The api key</param>
-        public DarkSkyService(string apiKey) : this(apiKey, "https://api.darksky.net/forecast") { }
+        public DarkSkyService(string apiKey) : this(apiKey, "https://api.darksky.net/forecast/") { }
         /// <summary>
         /// Get a new instance of Dark Sky service with the specified Api key and the specified host
         /// </summary>
